@@ -1,0 +1,117 @@
+/* =========================================
+   CONTACT FORM
+   ========================================= */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    text-align: left;
+    margin-bottom: 6rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-text {
+    font-size: 1.25rem;
+    color: var(--gray-light);
+    margin: 0 0 3rem 0;
+    max-width: 100%;
+}
+
+.contact-email {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 3rem;
+    display: inline-block;
+}
+
+.social-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.social-link {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-light);
+}
+
+.social-link:hover {
+    color: var(--accent-color);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.form-group {
+    position: relative;
+    padding-top: 1rem;
+}
+
+.form-group label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-light);
+    transition: color 0.3s ease;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    padding: 1rem 0;
+    color: #fff;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group .input-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--accent-color);
+    transition: width 0.4s var(--ease-out);
+}
+
+.form-group input:focus~.input-line,
+.form-group textarea:focus~.input-line {
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-bottom-color: transparent;
+    /* Use the line instead */
+}
+
+.form-group input:focus+label,
+.form-group textarea:focus+label {
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+}

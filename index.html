@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Personal Portfolio - High-performance, cinematic web experience.">
+    <title>Portfolio | Creative Developer</title>
+
+    <!-- Preload Critical Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/about.css">
+</head>
+
+<body>
+    <!-- Splash Screen / Loader -->
+    <div class="loader">
+        <div class="loader-content">
+            <span class="loader-text">INITIALIZING</span>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">PORTFOLIO</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Hero Section -->
+            <header class="hero" id="home">
+                <div class="hero-bg"></div>
+                <div class="container hero-container">
+                    <h1 class="hero-title">
+                        <span class="line">NAVEEN</span>
+                        <span class="line accent">MUTHUKUMAR</span>
+                    </h1>
+                    <p class="hero-subtitle">Software Developer | Frontend & Backend | API Integration</p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn primary">
+                            <span>View Projects</span>
+                            <div class="btn-fill"></div>
+                        </a>
+                        <a href="#contact" class="btn secondary"
+                            style="margin-left: 1rem; border-color: #fff; color: #fff;">
+                            <span>Contact Me</span>
+                            <div class="btn-fill" style="background: #fff;"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <span>EXPLORE</span>
+                    <div class="line"></div>
+                </div>
+            </header>
+
+            <!-- About Section -->
+            <section class="section about" id="about">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-label">01. PROFILE</span>
+                        <h2 class="section-title">About Me</h2>
+                    </div>
+                    <div class="about-grid">
+                        <div class="about-image-wrapper">
+                            <div class="about-image" style="background-image: url('assets/images/profile.png');"></div>
+                            <div class="about-image-overlay"></div>
+                        </div>
+                        <div class="about-content">
+                            <p class="about-text">
+                                I am a professional <strong>Software Developer</strong> with extensive exposure to both
+                                <strong>Frontend and Backend</strong> technologies.
+                                My expertise spans React, CMS development, and complex API integrations.
+                            </p>
+                            <p class="about-text">
+                                With an Agile mindset and a knack for problem-solving, I build digital solutions that
+                                are
+                                robust, scalable, and user-centric.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="section skills" id="skills">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-label">02. KEYWORDS</span>
+                        <h2 class="section-title">Technical Skills</h2>
+                    </div>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h3>Languages</h3>
+                            <ul class="skill-list">
+                                <li>JavaScript</li>
+                                <li>Python</li>
+                                <li>PHP</li>
+                                <li>HTML5 / CSS3</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>Frameworks / CMS</h3>
+                            <ul class="skill-list">
+                                <li>React.js</li>
+                                <li>Next.js</li>
+                                <li>WordPress</li>
+                                <li>Drupal</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>Tools & DB</h3>
+                            <ul class="skill-list">
+                                <li>MySQL</li>
+                                <li>Git / FTP</li>
+                                <li>Elementor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="section projects" id="projects">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-label">03. WORK</span>
+                        <h2 class="section-title">Key Projects</h2>
+                    </div>
+                    <div class="project-list">
+                        <!-- Project 1 -->
+                        <article class="project-card">
+                            <div class="project-image-wrap">
+                                <div class="project-image"
+                                    style="background-image: url('assets/images/quicktest.png');"></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>QuickTest.diy — AI Quiz Gen</h3>
+                                <p>AI-powered platform that dynamically generates quizzes from user input. Focus on
+                                    complex frontend logic and API integration.</p>
+                                <div class="project-tags">
+                                    <span>Next.js</span><span>AI API</span><span>UX Flow</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 2 -->
+                        <article class="project-card">
+                            <div class="project-image-wrap">
+                                <div class="project-image" style="background-image: url('assets/images/ojaak.png');">
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>OJAAK - Bidding Platform</h3>
+                                <p>Online auction system with real-time notifications and user authentication.</p>
+                                <div class="project-tags">
+                                    <span>React.js</span><span>Auth</span><span>Auction Logic</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 2 -->
+                        <article class="project-card">
+                            <div class="project-image-wrap">
+                                <div class="project-image" style="background-image: url('assets/images/dynamic.png');">
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Dynamic Webpage</h3>
+                                <p>Custom Elementor widgets integrated with a PHP backend and deployed via FTP.</p>
+                                <div class="project-tags">
+                                    <span>WordPress</span><span>Elementor</span><span>PHP</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 3 -->
+                        <article class="project-card">
+                            <div class="project-image-wrap">
+                                <div class="project-image" style="background-image: url('assets/images/drupal.png');">
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Drupal Migration</h3>
+                                <p>Seamless migration from Drupal 7 to 10 ensuring data integrity and enhanced security.
+                                </p>
+                                <div class="project-tags">
+                                    <span>Drupal 10</span><span>Migration</span><span>Security</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section class="section experience" id="experience">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-label">04. PATH</span>
+                        <h2 class="section-title">Timeline</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="year">Aug 2023 - Present</span>
+                            <div class="role-info">
+                                <h3>Software Developer</h3>
+                                <h4>iNoesis Technologies Pvt Ltd</h4>
+                                <p>Delivering robust software solutions, managing full development lifecycles, and
+                                    ensuring high-performance code.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section class="section education" id="education">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-label">05. LEARNING</span>
+                        <h2 class="section-title">Education & Certs</h2>
+                    </div>
+                    <div class="skills-grid" style="border-top: none; padding-top: 0;">
+                        <div class="skill-category">
+                            <h3>Education</h3>
+                            <ul class="skill-list">
+                                <li>BCA - Madras University</li>
+                                <li>Diploma in Electrical Eng.</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>Certifications</h3>
+                            <ul class="skill-list">
+                                <li>Full Stack Developer (MERN)</li>
+                                <li>Dynamic Webpage Development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="section contact" id="contact">
+                <div class="container">
+                    <div class="contact-wrapper">
+                        <div class="section-header">
+                            <span class="section-label">06. CONNECT</span>
+                            <h2 class="section-title">Let's Talk</h2>
+                        </div>
+
+                        <div class="contact-grid">
+                            <div class="contact-info">
+                                <p class="contact-text">
+                                    Based in <span class="text-accent">Chennai, India</span>.
+                                    Have a project in mind? Let's build something impossible.
+                                </p>
+                                <a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
+                                <div class="social-links">
+                                    <a href="#" class="social-link">GitHub</a>
+                                    <a href="#" class="social-link">LinkedIn</a>
+                                    <a href="#" class="social-link">Twitter</a>
+                                </div>
+                            </div>
+
+                            <form class="contact-form" action="#" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                                    <div class="input-line"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                                    <div class="input-line"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" rows="4" required
+                                        placeholder="Tell me about your project..."></textarea>
+                                    <div class="input-line"></div>
+                                </div>
+                                <button type="submit" class="btn primary">
+                                    <span>Send Message</span>
+                                    <div class="btn-fill"></div>
+                                </button>
+                            </form>
+                        </div>
+
+                        <footer class="footer">
+                            <p class="copyright">&copy; 2024 Portfolio. Built with purpose.</p>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <!-- GSAP Core + ScrollTrigger from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
