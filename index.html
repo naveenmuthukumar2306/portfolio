@@ -275,7 +275,8 @@
                                     Based in <span class="text-accent">Chennai, India</span>.
                                     Have a project in mind? Let's build something impossible.
                                 </p>
-                                <a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
+                                <a href="mailto:naveenmuthukumar2306@gmail.com"
+                                    class="contact-email">naveenmuthukumar2306@gmail.com</a>
                                 <div class="social-links">
                                     <a href="#" class="social-link">GitHub</a>
                                     <a href="#" class="social-link">LinkedIn</a>
@@ -283,32 +284,47 @@
                                 </div>
                             </div>
 
-                            <form class="contact-form" action="#" method="POST">
+                            <form class="contact-form" id="contact-form">
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" id="name" name="name" required placeholder="John Doe">
                                     <div class="input-line"></div>
+                                    <span class="error-message" id="name-error"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="email" id="email" name="email" required placeholder="john@example.com">
                                     <div class="input-line"></div>
+                                    <span class="error-message" id="email-error"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Message</label>
                                     <textarea id="message" name="message" rows="4" required
                                         placeholder="Tell me about your project..."></textarea>
                                     <div class="input-line"></div>
+                                    <span class="error-message" id="message-error"></span>
                                 </div>
-                                <button type="submit" class="btn primary">
+                                <button type="submit" class="btn primary" id="submit-btn">
                                     <span>Send Message</span>
                                     <div class="btn-fill"></div>
                                 </button>
+                                <div id="form-status" class="form-status"></div>
                             </form>
                         </div>
 
+                        <!-- EmailJS SDK -->
+                        <script type="text/javascript"
+                            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+                        <script type="text/javascript">
+                            (function () {
+                                // Initialize EmailJS with your public key
+                                // IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+                                emailjs.init('vY1XcYrI37nufwTj_');
+                            })();
+                        </script>
+
                         <footer class="footer">
-                            <p class="copyright">&copy; 2024 Portfolio. Built with purpose.</p>
+                            <p class="copyright">&copy; 2026 Portfolio. Built with purpose.</p>
                         </footer>
                     </div>
                 </div>

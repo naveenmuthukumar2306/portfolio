@@ -48,6 +48,7 @@ function initLoader() {
             initProjectTilt();
             initScrollSpy();
             initAboutAnimations();
+            initContactForm();
         });
 }
 
@@ -212,5 +213,128 @@ function initScrollAnimations() {
         },
         yPercent: 50,
         opacity: 0
+    });
+}
+
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusDiv = document.getElementById('form-status');
+
+    if (!form) return;
+
+    const setError = (element, message) => {
+        const inputGroup = element.parentElement;
+        const errorDisplay = inputGroup.querySelector('.error-message');
+
+        inputGroup.classList.add('error');
+        errorDisplay.textContent = message;
+    };
+
+    const clearError = (element) => {
+        const inputGroup = element.parentElement;
+        const errorDisplay = inputGroup.querySelector('.error-message');
+
+        inputGroup.classList.remove('error');
+        errorDisplay.textContent = '';
+    };
+
+    const validateEmail = (email) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    const validateInputs = () => {
+        const nameValue = nameInput.value.trim();
+        const emailValue = emailInput.value.trim();
+        const messageValue = messageInput.value.trim();
+        let isValid = true;
+
+        if (nameValue === '') {
+            setError(nameInput, 'Name is required');
+            isValid = false;
+        } else {
+            clearError(nameInput);
+        }
+
+        if (emailValue === '') {
+            setError(emailInput, 'Email is required');
+            isValid = false;
+        } else if (!validateEmail(emailValue)) {
+            setError(emailInput, 'Please provide a valid email address');
+            isValid = false;
+        } else {
+            clearError(emailInput);
+        }
+
+        if (messageValue === '') {
+            setError(messageInput, 'Message is required');
+            isValid = false;
+        } else if (messageValue.length < 10) {
+            setError(messageInput, 'Message must be at least 10 characters.');
+            isValid = false;
+        } else {
+            clearError(messageInput);
+        }
+
+        return isValid;
+    };
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (validateInputs()) {
+            const originalBtnText = submitBtn.querySelector('span').textContent;
+
+            // Set loading state
+            submitBtn.disabled = true;
+            submitBtn.querySelector('span').textContent = 'Sending...';
+            statusDiv.className = 'form-status';
+            statusDiv.style.display = 'none';
+
+            // Prepare template parameters
+            // These names must match the variables in your EmailJS template
+            const templateParams = {
+                from_name: nameInput.value,
+                reply_to: emailInput.value,
+                message: messageInput.value,
+                to_name: 'Naveen Muthukumar' // Or whatever variable you use for your name
+            };
+
+            // Send email using EmailJS
+            // REPLACE 'YOUR_SERVICE_ID' AND 'YOUR_TEMPLATE_ID' WITH YOUR ACTUAL IDS
+            emailjs.send('service_sp2u1h4', 'template_dzqfct9', templateParams)
+                .then(function () {
+                    // Success
+                    statusDiv.textContent = 'Message sent successfully! I will get back to you soon.';
+                    statusDiv.classList.add('success');
+                    statusDiv.style.display = 'block';
+                    form.reset();
+                }, function (error) {
+                    // Error
+                    console.error('FAILED...', error);
+                    statusDiv.textContent = 'Failed to send message. Please try again later or email me directly.';
+                    statusDiv.classList.add('error');
+                    statusDiv.style.display = 'block';
+                })
+                .finally(() => {
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('span').textContent = originalBtnText;
+                });
+        }
+    });
+
+    // Real-time validation (optional - removes errors as user types)
+    const inputs = [nameInput, emailInput, messageInput];
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.parentElement.classList.contains('error')) {
+                validateInputs();
+            }
+        });
     });
 }
