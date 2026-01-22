@@ -41,6 +41,7 @@ function initLoader() {
             duration: 0.8
         }, "-=0.6")
         .add(() => {
+            initMobileMenu();
             initScrollAnimations();
             initHeroParallax();
             initMagneticButtons();
@@ -49,6 +50,7 @@ function initLoader() {
             initScrollSpy();
             initAboutAnimations();
             initContactForm();
+            initNavScroll();
         });
 }
 
@@ -336,5 +338,40 @@ function initContactForm() {
                 validateInputs();
             }
         });
+    });
+}
+
+function initMobileMenu() {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-link");
+
+    if (!menuToggle || !navLinks) return;
+
+    menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+        document.body.classList.toggle("no-scroll");
+    });
+
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            menuToggle.classList.remove("active");
+            document.body.classList.remove("no-scroll");
+        });
+    });
+}
+
+function initNavScroll() {
+    const nav = document.querySelector(".nav");
+    if (!nav) return;
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            nav.classList.add("scrolled");
+        } else {
+            nav.classList.remove("scrolled");
+        }
     });
 }
