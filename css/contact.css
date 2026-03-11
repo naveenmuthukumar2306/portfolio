@@ -1,5 +1,5 @@
 /* Contact Section Styles */
-.contact-wrapper {
+.contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
@@ -11,22 +11,25 @@
 }
 
 .contact-text {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    color: var(--gray-light);
     line-height: 1.6;
     margin-bottom: 2rem;
 }
 
 .contact-email {
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 5vw, 1.5rem);
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--heading-color);
     text-decoration: none;
     margin-bottom: 2.5rem;
     position: relative;
     transition: color 0.3s ease;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
 }
 
 .contact-email::after {
@@ -36,12 +39,12 @@
     left: 0;
     width: 0%;
     height: 2px;
-    background: var(--accent);
+    background: var(--accent-color);
     transition: width 0.3s ease;
 }
 
 .contact-email:hover {
-    color: var(--accent);
+    color: var(--accent-color);
 }
 
 .contact-email:hover::after {
@@ -50,10 +53,11 @@
 
 /* Form Styles */
 .contact-form {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--nav-bg);
     padding: 2.5rem;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px var(--card-shadow);
     backdrop-filter: blur(10px);
 }
 
@@ -66,7 +70,7 @@
     display: block;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--gray-light);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -77,23 +81,24 @@
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
     padding: 0.8rem 0;
     font-family: 'Outfit', sans-serif;
     font-size: 1.1rem;
-    color: var(--text-primary);
+    color: var(--text-color);
     transition: border-color 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent-color);
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: var(--gray-light);
+    opacity: 0.6;
 }
 
 /* Validation Styles */
@@ -162,7 +167,7 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-    .contact-wrapper {
+    .contact-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
     }

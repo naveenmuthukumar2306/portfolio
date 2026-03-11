@@ -2,8 +2,39 @@ document.addEventListener("DOMContentLoaded", () => {
     // Register GSAP Plugin
     gsap.registerPlugin(ScrollTrigger);
 
+    initThemeToggle(); // Initialize theme immediately
     initLoader();
 });
+
+function initThemeToggle() {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (!themeToggleBtn) return;
+
+    // Check for saved user preference in localStorage
+    const currentTheme = localStorage.getItem("theme");
+
+    // Check user preference or system preference
+    if (currentTheme === "light") {
+        document.body.classList.add("light-theme");
+    } else if (currentTheme === "dark") {
+        document.body.classList.remove("light-theme");
+    } else {
+        // Fallback to system preference if no localStorage
+        const prefersLightScheme = window.matchMedia("(prefers-color-scheme: light)");
+        if (prefersLightScheme.matches) {
+            document.body.classList.add("light-theme");
+        }
+    }
+
+    // Toggle theme on button click
+    themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-theme");
+
+        // Save preference in localStorage
+        const theme = document.body.classList.contains("light-theme") ? "light" : "dark";
+        localStorage.setItem("theme", theme);
+    });
+}
 
 function initLoader() {
     const tl = gsap.timeline();
@@ -21,30 +52,37 @@ function initLoader() {
         .to(".loader", {
             yPercent: -100,
             duration: 1,
-            ease: "power3.inOut"
+            ease: "power4.inOut" // Smoother exit
         })
         .from(".hero-title .line", {
             y: 100,
             opacity: 0,
-            duration: 1,
-            stagger: 0.2,
+            duration: 1.2, // Slightly longer
+            stagger: 0.15, // Tighter stagger
             ease: "power4.out"
-        }, "-=0.5")
+        }, "-=0.2") // Start slightly before loader finishes leaving
         .from(".hero-subtitle", {
-            y: 20,
+            y: 30,
             opacity: 0,
-            duration: 0.8
-        }, "-=0.5")
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.8")
         .from(".hero-cta", {
-            y: 20,
+            y: 30,
             opacity: 0,
-            duration: 0.8
-        }, "-=0.6")
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.8")
+        .from(".nav", {
+            y: -50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=1")
         .add(() => {
             initMobileMenu();
             initScrollAnimations();
             initHeroParallax();
-            initMagneticButtons();
             initMagneticButtons();
             initProjectTilt();
             initScrollSpy();
@@ -181,29 +219,63 @@ function initAboutAnimations() {
 }
 
 function initScrollAnimations() {
-    // Reveal Sections
+    // Advanced Reveal Sections
     const sections = document.querySelectorAll(".section");
 
     sections.forEach(section => {
-        const elems = section.querySelectorAll(".section-header, .about-content p, .about-image-wrapper, .skills-grid, .project-card, .timeline-item, .contact-wrapper");
+        // Find elements to animate within this section
+        const headerElems = section.querySelectorAll(".section-header");
+        const contentElems = section.querySelectorAll(".about-content p, .about-image-wrapper, .contact-wrapper > *");
+        const gridElems = section.querySelectorAll(".skill-category, .project-card, .timeline-item");
 
-        // Skip if no elements found
-        if (elems.length === 0) return;
+        // Animate headers first
+        if (headerElems.length > 0) {
+            gsap.from(headerElems, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        }
 
-        gsap.from(elems, {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: "power3.out"
-        });
+        // Animate content blocks
+        if (contentElems.length > 0) {
+            gsap.from(contentElems, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 70%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+        }
+
+        // Animate grid items (skills, projects, timeline) with stagger
+        if (gridElems.length > 0) {
+            gsap.from(gridElems, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 60,
+                opacity: 0,
+                scale: 0.95, // Slight scale up for modern feel
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "back.out(1.2)" // Bouncy entrance
+            });
+        }
     });
-
 
     // Parallax Effects (Subtle)
     gsap.to(".hero-bg", {
@@ -213,9 +285,26 @@ function initScrollAnimations() {
             end: "bottom top",
             scrub: true
         },
-        yPercent: 50,
+        yPercent: 30, // Reduced from 50 so it's smoother
         opacity: 0
     });
+    
+    // Animate contact form input borders acting like progress bars
+    const inputs = document.querySelectorAll('.form-group input, .form-group textarea');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            gsap.to(input, { borderBottomColor: "var(--accent-color)", duration: 0.3 });
+        });
+        input.addEventListener('blur', () => {
+            if(input.value === '') {
+                gsap.to(input, { borderBottomColor: "var(--border-color)", duration: 0.3 });
+            }
+        });
+    });
+}
+
+function initProjectTilt() {
+    // Dummy function for tilt effect, or attach tilt.js if desired later
 }
 
 function initContactForm() {
