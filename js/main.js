@@ -226,19 +226,22 @@ function initScrollAnimations() {
         // Find elements to animate within this section
         const headerElems = section.querySelectorAll(".section-header");
         const contentElems = section.querySelectorAll(".about-content p, .about-image-wrapper, .contact-wrapper > *");
-        const gridElems = section.querySelectorAll(".skill-category, .project-card, .timeline-item");
+        const gridElems = section.querySelectorAll(".skill-category, .timeline-item"); // Removed .project-card for custom 3D parsing
 
         // Animate headers first
         if (headerElems.length > 0) {
             gsap.from(headerElems, {
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 80%",
+                    start: "top 85%",
                     toggleActions: "play none none reverse"
                 },
                 y: 50,
+                z: -50,
+                rotateX: -20,
                 opacity: 0,
                 duration: 1,
+                transformOrigin: "top center",
                 ease: "power3.out"
             });
         }
@@ -248,30 +251,36 @@ function initScrollAnimations() {
             gsap.from(contentElems, {
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 70%",
+                    start: "top 80%",
                     toggleActions: "play none none reverse"
                 },
                 y: 40,
+                z: -30,
+                rotateX: -15,
                 opacity: 0,
-                duration: 1,
+                duration: 1.2,
                 stagger: 0.2,
+                transformOrigin: "top center",
                 ease: "power3.out"
             });
         }
 
-        // Animate grid items (skills, projects, timeline) with stagger
+        // Animate grid items (skills, timeline) with stagger
         if (gridElems.length > 0) {
             gsap.from(gridElems, {
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 75%",
+                    start: "top 80%",
                     toggleActions: "play none none reverse"
                 },
                 y: 60,
+                z: -40,
+                rotateX: -15,
                 opacity: 0,
-                scale: 0.95, // Slight scale up for modern feel
+                scale: 0.9,
                 duration: 1.2,
                 stagger: 0.15,
+                transformOrigin: "top center",
                 ease: "back.out(1.2)" // Bouncy entrance
             });
         }
@@ -283,10 +292,26 @@ function initScrollAnimations() {
             trigger: ".hero",
             start: "top top",
             end: "bottom top",
-            scrub: true
+            scrub: 1
         },
         yPercent: 30, // Reduced from 50 so it's smoother
+        scale: 1.1,
         opacity: 0
+    });
+
+    // 3D Depth on Hero Container on scroll
+    gsap.to(".hero-container", {
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1
+        },
+        y: 100,
+        z: -150,
+        rotateX: 10,
+        opacity: 0,
+        scale: 0.9
     });
     
     // Animate contact form input borders acting like progress bars
@@ -304,7 +329,68 @@ function initScrollAnimations() {
 }
 
 function initProjectTilt() {
-    // Dummy function for tilt effect, or attach tilt.js if desired later
+    const projectCards = document.querySelectorAll(".project-card");
+    
+    projectCards.forEach(card => {
+        // Set perspective on card to allow 3D transforms for children
+        gsap.set(card, { perspective: 1000 });
+        
+        const imageWrap = card.querySelector(".project-image-wrap");
+        const info = card.querySelector(".project-info");
+        
+        // Initial reveal animation (since we removed it from gridElems)
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            y: 80,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out"
+        });
+
+        // 3D Parallax scrub on scroll
+        gsap.fromTo(imageWrap, 
+            { 
+                rotateX: 15, 
+                rotateY: -5,
+                z: -80,
+                scale: 0.95
+            },
+            {
+                rotateX: -10,
+                rotateY: 5,
+                z: 0,
+                scale: 1.05,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Subtly parallax the text information with 3D effect
+        gsap.fromTo(info,
+            { y: 50, z: -30, rotateX: 5 },
+            {
+                y: -50,
+                z: 30,
+                rotateX: -5,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.5
+                }
+            }
+        );
+    });
 }
 
 function initContactForm() {
