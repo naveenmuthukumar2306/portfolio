@@ -47,11 +47,11 @@ body.light-theme {
     /* Geometric, bold */
 
     /* Spacing */
-    --space-xs: 1rem;
-    --space-sm: 2rem;
-    --space-md: 4rem;
-    --space-lg: 8rem;
-    --space-xl: 12rem;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
 
     /* Transitions */
     --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -149,6 +149,7 @@ ul {
 .section {
     padding: var(--space-lg) 0;
     position: relative;
+    perspective: 1200px;
 }
 
 .btn {
@@ -427,9 +428,9 @@ body.light-theme .moon-icon {
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 4rem;
+    gap: 2rem;
     border-top: 1px solid var(--border-color);
-    padding-top: 4rem;
+    padding-top: 2rem;
 }
 
 .skill-category h3 {
@@ -452,13 +453,13 @@ body.light-theme .moon-icon {
 .project-list {
     display: flex;
     flex-direction: column;
-    gap: 8rem;
+    gap: 4rem;
 }
 
 .project-card {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    gap: 4rem;
+    gap: 2rem;
     align-items: center;
 }
 
@@ -534,7 +535,7 @@ body.light-theme .moon-icon {
 
 .timeline-item {
     position: relative;
-    margin-bottom: 5rem;
+    margin-bottom: 2.5rem;
 }
 
 .timeline-item::before {
@@ -573,7 +574,7 @@ body.light-theme .moon-icon {
    ========================================= */
 .contact-wrapper {
     text-align: center;
-    padding: 6rem 0;
+    padding: 3rem 0;
 }
 
 .contact-text {
@@ -703,7 +704,7 @@ body.light-theme .moon-icon {
 
 @media (max-width: 480px) {
     .section {
-        padding: 4rem 0;
+        padding: 2rem 0;
     }
 
     .hero-title {
