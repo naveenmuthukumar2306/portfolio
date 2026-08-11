@@ -11,8 +11,7 @@
 .about-image-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 110%;
-    /* Aspect Ratio */
+    aspect-ratio: 4/5;
     overflow: hidden;
     border-radius: 4px;
 }
@@ -28,8 +27,6 @@
     filter: grayscale(20%);
 }
 
-
-
 .about-image-overlay {
     position: absolute;
     top: 0;
@@ -40,14 +37,9 @@
     z-index: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .about-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-    }
-
-    .about-image-wrapper {
-        width: 70%;
-        margin: 0 auto;
     }
 }

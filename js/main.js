@@ -219,177 +219,111 @@ function initAboutAnimations() {
 }
 
 function initScrollAnimations() {
-    // Advanced Reveal Sections
     const sections = document.querySelectorAll(".section");
+    let mm = gsap.matchMedia();
 
-    sections.forEach(section => {
-        // Find elements to animate within this section
-        const headerElems = section.querySelectorAll(".section-header");
-        const contentElems = section.querySelectorAll(".about-content p, .about-image-wrapper, .contact-wrapper > *");
-        const gridElems = section.querySelectorAll(".skill-category, .timeline-item"); // Removed .project-card for custom 3D parsing
+    mm.add({
+        isDesktop: "(min-width: 901px) and (prefers-reduced-motion: no-preference)",
+        isMobile: "(max-width: 900px) and (prefers-reduced-motion: no-preference)",
+        reduceMotion: "(prefers-reduced-motion: reduce)"
+    }, (context) => {
+        let { isDesktop, reduceMotion } = context.conditions;
+        if (reduceMotion) return;
 
-        // Animate headers first
-        if (headerElems.length > 0) {
-            gsap.from(headerElems, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
-                },
-                y: 50,
-                z: -50,
-                rotateX: -20,
-                opacity: 0,
-                duration: 1,
-                transformOrigin: "top center",
-                ease: "power3.out"
-            });
-        }
+        sections.forEach(section => {
+            const headerElems = section.querySelectorAll(".section-header");
+            const contentElems = section.querySelectorAll(".about-content p, .about-image-wrapper, .contact-wrapper > *");
+            const gridElems = section.querySelectorAll(".skill-category, .timeline-item");
 
-        // Animate content blocks
-        if (contentElems.length > 0) {
-            gsap.from(contentElems, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                y: 40,
-                z: -30,
-                rotateX: -15,
-                opacity: 0,
-                duration: 1.2,
-                stagger: 0.2,
-                transformOrigin: "top center",
-                ease: "power3.out"
-            });
-        }
+            const headerVars = isDesktop 
+                ? { y: 50, z: -50, rotateX: -20, opacity: 0, duration: 1, transformOrigin: "top center", ease: "power3.out" }
+                : { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" };
 
-        // Animate grid items (skills, timeline) with stagger
-        if (gridElems.length > 0) {
-            gsap.from(gridElems, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                y: 60,
-                z: -40,
-                rotateX: -15,
-                opacity: 0,
-                scale: 0.9,
-                duration: 1.2,
-                stagger: 0.15,
-                transformOrigin: "top center",
-                ease: "back.out(1.2)" // Bouncy entrance
-            });
-        }
-    });
+            if (headerElems.length > 0) {
+                gsap.from(headerElems, {
+                    scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" },
+                    ...headerVars
+                });
+            }
 
-    // Parallax Effects (Subtle)
-    gsap.to(".hero-bg", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1
-        },
-        yPercent: 30, // Reduced from 50 so it's smoother
-        scale: 1.1,
-        opacity: 0
-    });
+            const contentVars = isDesktop
+                ? { y: 40, z: -30, rotateX: -15, opacity: 0, duration: 1.2, stagger: 0.2, transformOrigin: "top center", ease: "power3.out" }
+                : { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" };
 
-    // 3D Depth on Hero Container on scroll
-    gsap.to(".hero-container", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1
-        },
-        y: 100,
-        z: -150,
-        rotateX: 10,
-        opacity: 0,
-        scale: 0.9
-    });
-    
-    // Animate contact form input borders acting like progress bars
-    const inputs = document.querySelectorAll('.form-group input, .form-group textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            gsap.to(input, { borderBottomColor: "var(--accent-color)", duration: 0.3 });
-        });
-        input.addEventListener('blur', () => {
-            if(input.value === '') {
-                gsap.to(input, { borderBottomColor: "var(--border-color)", duration: 0.3 });
+            if (contentElems.length > 0) {
+                gsap.from(contentElems, {
+                    scrollTrigger: { trigger: section, start: "top 80%", toggleActions: "play none none reverse" },
+                    ...contentVars
+                });
+            }
+
+            const gridVars = isDesktop
+                ? { y: 60, z: -40, rotateX: -15, opacity: 0, scale: 0.9, duration: 1.2, stagger: 0.15, transformOrigin: "top center", ease: "back.out(1.2)" }
+                : { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" };
+
+            if (gridElems.length > 0) {
+                gsap.from(gridElems, {
+                    scrollTrigger: { trigger: section, start: "top 80%", toggleActions: "play none none reverse" },
+                    ...gridVars
+                });
             }
         });
+
+        if (isDesktop) {
+            gsap.to(".hero-bg", {
+                scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 },
+                yPercent: 30, scale: 1.1, opacity: 0
+            });
+
+            gsap.to(".hero-container", {
+                scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 },
+                y: 100, z: -100, rotateX: 5, opacity: 0, scale: 0.95
+            });
+        }
+    });
+
+    const inputs = document.querySelectorAll('.form-group input, .form-group textarea');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => { gsap.to(input, { borderBottomColor: "var(--accent-color)", duration: 0.3 }); });
+        input.addEventListener('blur', () => { if(input.value === '') gsap.to(input, { borderBottomColor: "var(--border-color)", duration: 0.3 }); });
     });
 }
 
 function initProjectTilt() {
     const projectCards = document.querySelectorAll(".project-card");
-    
-    projectCards.forEach(card => {
-        // Set perspective on card to allow 3D transforms for children
-        gsap.set(card, { perspective: 1000 });
-        
-        const imageWrap = card.querySelector(".project-image-wrap");
-        const info = card.querySelector(".project-info");
-        
-        // Initial reveal animation (since we removed it from gridElems)
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-            },
-            y: 80,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out"
+    let mm = gsap.matchMedia();
+
+    mm.add({
+        isDesktop: "(min-width: 901px) and (prefers-reduced-motion: no-preference)",
+        isMobile: "(max-width: 900px) and (prefers-reduced-motion: no-preference)",
+        reduceMotion: "(prefers-reduced-motion: reduce)"
+    }, (context) => {
+        let { isDesktop, reduceMotion } = context.conditions;
+        if (reduceMotion) return;
+
+        projectCards.forEach(card => {
+            if (isDesktop) gsap.set(card, { perspective: 1000 });
+            
+            const imageWrap = card.querySelector(".project-image-wrap");
+            const info = card.querySelector(".project-info");
+            
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none reverse" },
+                y: 50, opacity: 0, duration: 1, ease: "power3.out"
+            });
+
+            if (isDesktop) {
+                gsap.fromTo(imageWrap, 
+                    { rotateX: 10, rotateY: -5, z: -50, scale: 0.95 },
+                    { rotateX: -5, rotateY: 5, z: 0, scale: 1.02, ease: "none", scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1 } }
+                );
+
+                gsap.fromTo(info,
+                    { y: 30, z: -20, rotateX: 3 },
+                    { y: -30, z: 20, rotateX: -3, ease: "none", scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.5 } }
+                );
+            }
         });
-
-        // 3D Parallax scrub on scroll
-        gsap.fromTo(imageWrap, 
-            { 
-                rotateX: 15, 
-                rotateY: -5,
-                z: -80,
-                scale: 0.95
-            },
-            {
-                rotateX: -10,
-                rotateY: 5,
-                z: 0,
-                scale: 1.05,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1
-                }
-            }
-        );
-
-        // Subtly parallax the text information with 3D effect
-        gsap.fromTo(info,
-            { y: 50, z: -30, rotateX: 5 },
-            {
-                y: -50,
-                z: 30,
-                rotateX: -5,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1.5
-                }
-            }
-        );
     });
 }
 
